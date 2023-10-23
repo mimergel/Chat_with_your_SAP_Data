@@ -1,4 +1,4 @@
-# Chat with your SAP Data or maybe any data
+# Chat with your SAP Data or any data
 
 # Note: this is work in progress
 
