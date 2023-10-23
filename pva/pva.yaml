@@ -1,0 +1,152 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: FlightData (Copy)
+    triggerQueries:
+      - openai
+      - sflight
+      - flightdemo
+      - flight demo
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_OQvm9W
+      activity: **Welcome to the SAP Flight Demo Data Information Bot! I'm here to assist you in extracting valuable insights from the flight demo data with utmost precision and efficiency.**
+
+    - kind: Question
+      id: question_rnYcpD
+      interruptionPolicy:
+        allowInterruption: true
+
+      alwaysPrompt: true
+      variable: Topic.Model
+      prompt: Which model should be used?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: GPT-3.5-Turbo
+              displayName: gpt-3.5-turbo
+
+            - id: gpt-4
+              displayName: gpt-4
+
+    - kind: SetVariable
+      id: setVariable_Sq1jxG
+      variable: Topic.PromptHistory
+      value: "\" \""
+
+    - kind: SetVariable
+      id: setVariable_K6E5Wi
+      variable: Topic.PromptHistory
+      value: =Text(Blank())
+
+    - kind: ClearAllVariables
+      id: 40sVpX
+
+    - kind: Question
+      id: question_JDJLbn
+      interruptionPolicy:
+        allowInterruption: true
+
+      alwaysPrompt: true
+      variable: Topic.Question
+      prompt: What would you like to know about your data?
+      entity: StringPrebuiltEntity
+
+    - kind: SetVariable
+      id: setVariable_CTP3Eh
+      variable: Topic.PromptHistory
+      value: =Topic.PromptHistory & " " & Topic.Question
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_SEk4nT
+      input:
+        binding:
+          text: =Topic.PromptHistory
+          text_1: =Lower(Text(Topic.Model))
+
+      output:
+        binding:
+          ac_answer: Topic.AC_Answer
+          ac_url: Topic.AC_URL
+          outcome: Topic.Outcome
+          sqloutputtable: Topic.SQLOutputTable
+
+      flowId: ed99445b-1257-ee11-be6f-000d3a463168
+
+    - kind: SendActivity
+      id: sendActivity_ny211G
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: =Topic.AC_Answer
+
+    - kind: SendActivity
+      id: sendActivity_Ucva5q
+      activity: "{Topic.SQLOutputTable}"
+
+    - kind: SendActivity
+      id: sendActivity_utKjcl
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: =Topic.AC_URL
+
+    - kind: Question
+      id: question_oWSZjR
+      interruptionPolicy:
+        allowInterruption: true
+
+      alwaysPrompt: true
+      variable: init:Topic.Var1
+      prompt: Do you have a follow-up question? 
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: YES
+              displayName: Yes
+
+            - id: No, let's start a new topic.
+              displayName: No, let's start a new topic.
+
+    - kind: ConditionGroup
+      id: conditionGroup_zsZORg
+      conditions:
+        - id: conditionItem_rEnMnB
+          condition: =Topic.Var1 = 'cr4af_conversationWithMySapData.topic.FlightDataChatGPT.main.question_oWSZjR'.YES
+          actions:
+            - kind: SetVariable
+              id: setVariable_zrIVXD
+              variable: Topic.PromptHistory
+              value: "=\"The previous discussions had this outcome: \" & Topic.PromptHistory & \" \" & Topic.Outcome & Char(10) & Char(10) & \"Follow-up question: \""
+
+        - id: conditionItem_d5PYxR
+          condition: =Topic.Var1 <> 'cr4af_conversationWithMySapData.topic.FlightDataChatGPT.main.question_oWSZjR'.YES
+          actions:
+            - kind: BeginDialog
+              id: ypXwd1
+              dialog: cr4af_conversationWithMySapData.topic.Greeting
+
+    - kind: GotoAction
+      id: 5gg7nR
+      actionId: question_JDJLbn
+
+inputType:
+  properties:
+    Explanation:
+      displayName: Explanation
+      type: String
+
+    Explanation2:
+      displayName: Explanation2
+      type: String
+
+    SQL:
+      displayName: SQL
+      type: String
