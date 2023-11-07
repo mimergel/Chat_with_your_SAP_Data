@@ -50,7 +50,7 @@ Integrate a ChatGPT-like experience directly into Microsoft Teams, enabling user
 
 - Login to: https://make.powerautomate.com/.
 - Go to Solutions and import the Power Automate Flow.
-- Here you can download the flow as zip file: [Download the Power Automate Flow](https://github.com/mimergel/chat_with_your_sap_data/blob/main/flow/ChatWithMySAPDataOpenAI_Flow_Export_1_0_0_4.zip)
+- Here you can download the flow as zip file: [Download the Power Automate Flow](https://github.com/mimergel/chat_with_your_sap_data/blob/main/flow/FlightDemoBotV2_1_0_0_6.zip)
 
     ![Import the Flow](images/import-flow.jpg) <br>
 
