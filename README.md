@@ -2,6 +2,14 @@
 
 Integrate a ChatGPT-like experience directly into Microsoft Teams, enabling users to ask any question about their SAP data. With all data and interactions securely contained within your private Power Platform environment and Azure Subscription, engage in confidential conversations using your business data, ensuring privacy and security at every step.
 
+Get quickly questions solved and even the result presented as a chart.
+Examples: 
+- What is my current stock of product A in all of my factory for model B from vendor C?
+- How are sales progressing over the last 6 weeks?
+- I want to verify data quality: Please show me sold products that have incomplete owners data?
+- How many empty seats did we have for for economy, business and first class in September 2023?
+- etc.
+
 **Architecture**
 
 ![High Level Process](images/high-level-process.jpg)
@@ -30,8 +38,6 @@ Integrate a ChatGPT-like experience directly into Microsoft Teams, enabling user
     - Request Access to OpenAI as described. Request only Text & code models.
 1. Function App (Premium) 
     1. To run SQL code against the HANA DB
-        - With a system assigned identity, to enable access to the DB secret in a key vault
-        - With VNET integration und outbound network access into a dedicated subnet from where access to the DB is possible
     1. To convert the SQL Output in CSV into other formats like JSON, MARKDOWN or HTML
 1. Generate the SAP Flight Demo Data or try directly on SAP business data
     - https://help.sap.com/docs/SUPPORT_CONTENT/abap/3353524003.html
@@ -45,6 +51,28 @@ Integrate a ChatGPT-like experience directly into Microsoft Teams, enabling user
 - Follow this documentation: https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal <br> 
 - Once the OpenAI Service is deployed go to Models and deploy the gpt-35-turbo model. <br>
 - Retrieve your endpoint URL and Key in "Chat Playground" -> "View code".
+
+## Azure function to execute SQL on the DB
+
+To connect to the HANA DB we start hdbsql from an Azure function. <br> 
+Implement this Azure Function to call hdbsql and execute the SQL code in the HANA DB: [Azure Function to call hdbsql](https://github.com/mimergel/saphanasqlfunction) <br> 
+
+The funtion must be deployed with a system assigned identity, to enable access to the DB secret in a key vault.
+Furthermore we require a VNET integration und outbound network access into a dedicated subnet from where access to the DB is possible.
+
+See this documentation: https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli&pivots=python-mode-decorators 
+
+I haven't had the opportunity to explore alternative database vendors. I'm sure this concept can be applied to any SAP database systems, such as Oracle, DB2, MS SQL, MAXDB, and Sybase. <br> 
+
+Similarly, I'm sure that it can also be effectively utilized with Non-SAP databases. <br> 
+
+
+## Azure function to convert SQL Output in CSV into JSON and MARKDOWN
+
+Implement this Azure Function for the conversion: [Azure Function to convert CSV](https://github.com/mimergel/sqloutputcsv_to_json_html_markdown) <br> 
+
+
+
 
 ## Setup the Power Automate Flow (Flow)
 
@@ -114,7 +142,7 @@ Note that the key is here part of queries section and is called "code".
 
 - In the fallback topic paste the code from the provided fallback.yaml file.
 
-- Download the fallback topic code here: [fallback.yaml](pva/fallback.yaml) <br>
+- Get the code for the fallback topic: [fallback.yaml](pva/fallback.yaml) <br>
 
 - Open the fallback topic in your bot
 
@@ -125,21 +153,6 @@ Note that the key is here part of queries section and is called "code".
     ![Code Editor](images/pva-fallback2.jpg) <br> 
 
  <br> 
-
-
-## Azure function to execute SQL on the DB
-
-For HANA DB we start hdbsql from an Azure function. <br> 
-Implement this Azure Function to call hdbsql and execute the SQL code in the HANA DB: [Azure Function to call hdbsql](https://github.com/mimergel/saphanasqlfunction) <br> 
-
-I haven't had the opportunity to explore alternative database vendors. I'm sure this concept can be applied to any SAP database systems, such as Oracle, DB2, MS SQL, MAXDB, and Sybase. <br> 
-
-Similarly, I'm sure that it can also be effectively utilized with Non-SAP databases. <br> 
-<br> 
-
-## Azure function to convert SQL Output in CSV into JSON and MARKDOWN
-
-Implement this Azure Function for the conversion: [Azure Function to convert CSV](https://github.com/mimergel/sqloutputcsv_to_json_html_markdown) <br> 
 
 
 ## Disclaimer
