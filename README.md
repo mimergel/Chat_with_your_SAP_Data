@@ -4,11 +4,13 @@ Integrate a ChatGPT-like experience directly into Microsoft Teams, enabling user
 
 Get quickly questions solved and even the result presented as a chart.
 Examples: 
-- What is my current stock of product A in all of my factory for model B from vendor C?
-- How are sales progressing over the last 6 weeks?
+- What is my current stock of a specific product from a specific vendor in my factories for a certain product?
+- How are sales progressing over the last 6 weeks for a specific product, model or service?
 - I want to verify data quality: Please show me sold products that have incomplete owners data?
 - How many empty seats did we have for for economy, business and first class in September 2023?
-- etc.
+- A machine operator is having problems and needs help. The bot knows all the extensive documentation and assists. If he still cannot solve the problem, the bot can create the repair order in SAP.
+- Ask for real time financial status of the company from within teams, per region, country, product, etc.
+- and much more ...
 
 **Architecture**
 
@@ -72,8 +74,6 @@ Similarly, I'm sure that it can also be effectively utilized with Non-SAP databa
 Implement this Azure Function for the conversion: [Azure Function to convert CSV](https://github.com/mimergel/sqloutputcsv_to_json_html_markdown) <br> 
 
 
-
-
 ## Setup the Power Automate Flow (Flow)
 
 - Login to: https://make.powerautomate.com/.
@@ -95,7 +95,6 @@ Implement this Azure Function for the conversion: [Azure Function to convert CSV
 ![Chat with my SAP Data Flow Part 3](images/flow3.jpg) <br>
 
 ![Chat with my SAP Data Flow Part 4](images/flow4.jpg) <br>
-
 
 
 ## Adapt the HTTP Connectors in the Flow
@@ -153,6 +152,54 @@ Note that the key is here part of queries section and is called "code".
     ![Code Editor](images/pva-fallback2.jpg) <br> 
 
  <br> 
+
+
+## Test & Publish the Bot
+
+- Test the Bot in: https://web.powerva.microsoft.com
+
+    ![Test 1](images/test-pva1.jpg)
+
+    | ![Test 2](images/test-pva2.jpg) | ![Test 3](images/test-pva3.jpg) |
+
+    ![Test 4](images/test-pva4.jpg)
+
+
+- When everything works fine publish the bot under `Settings` -> `Channels` -> `Microsoft Teams`
+
+    ![Publish](images/publish.jpg)
+
+- Activate and Open the Bot in Teams
+
+    ![Publish](images/open-bot-in-teams.jpg) <br>
+
+- Open the Bot in Teams and test: <br>
+
+    ![Publish](images/test-teams1.jpg) 
+
+    ![Publish](images/test-teams2.jpg) 
+
+    ![Publish](images/test-teams3.jpg) 
+
+
+
+## Troubleshooting
+
+- In case of errors most likely the flow failed.
+    Example here with a wrong API key: 
+
+    ![Troubleshooting 1](images/troubleshooting1.jpg) <br>
+
+    - Check here: https://make.powerautomate.com/ in <br>
+        - "My Flows"   <br>
+        - "28-days run history"  <br>
+
+    ![Troubleshooting 2](images/troubleshooting2.jpg) <br>
+
+- The logs of the last flow run will provide helpful error messages.  <br>
+- Got to `Edit` and fix the issue:  
+
+    ![Troubleshooting 1](images/troubleshooting3.jpg) <br>
 
 
 ## Disclaimer
