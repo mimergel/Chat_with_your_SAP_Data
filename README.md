@@ -59,11 +59,6 @@ Examples:
 To connect to the HANA DB we start hdbsql from an Azure function. <br> 
 Implement this Azure Function to call hdbsql and execute the SQL code in the HANA DB: [Azure Function to call hdbsql](https://github.com/mimergel/saphanasqlfunction) <br> 
 
-The funtion must be deployed with a system assigned identity, to enable access to the DB secret in a key vault.
-Furthermore we require a VNET integration und outbound network access into a dedicated subnet from where access to the DB is possible.
-
-See this documentation: https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=linux%2Cbash%2Cazure-cli&pivots=python-mode-decorators 
-
 I haven't had the opportunity to explore alternative database vendors. I'm sure this concept can be applied to any SAP database systems, such as Oracle, DB2, MS SQL, MAXDB, and Sybase. <br> 
 
 Similarly, I'm sure that it can also be effectively utilized with Non-SAP databases. <br> 
