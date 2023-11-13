@@ -12,12 +12,12 @@ Examples:
 - Ask for real time financial status of the company from within teams, per region, country, product, etc.
 - and much more ...
 
-**Architecture**
+# Architecture
 
 ![High Level Process](images/high-level-process.jpg)
 
 
-**Chat examples**
+# Chat Examples
 
 ![Greetings](images/greetings1.jpg)
 ![Greetings](images/greetings2.jpg)
@@ -51,7 +51,7 @@ Examples:
 ## Azure OpenAI Service 
 
 - Follow this documentation: https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal <br> 
-- Once the OpenAI Service is deployed go to Models and deploy the gpt-35-turbo model. <br>
+- Once the OpenAI Service is deployed go to Models and deploy the gpt-35-turbo or gpt-4 model. <br>
 - Retrieve your endpoint URL and Key in "Chat Playground" -> "View code".
 
 ## Azure function to execute SQL on the DB
@@ -196,6 +196,18 @@ Note that the key is here part of queries section and is called "code".
 
     ![Troubleshooting 1](images/troubleshooting3.jpg) <br>
 
+
+# Adapt to other business scenarios
+
+Steps to adapt the solution to another business scenario:
+
+- Identify the relevant SAP tables with the data that you want to ask questions about.
+- Grant the HANA DB user read access to these tables.
+- Adapt the Initialize variable "System Prompt" step in the flow:
+
+    ![Adapt Flow](images/adapt-flow.jpg) <br>
+
+- Enter the table(s) definition for your scenario
 
 ## Disclaimer
 
