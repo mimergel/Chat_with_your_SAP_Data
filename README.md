@@ -81,11 +81,7 @@ Implement this Azure Function for the conversion: [Azure Function to convert CSV
 
 **Flow Screenshots**
 
-<br>
-
-| ![Chat with my SAP Data Flow Part 1](images/flow1.jpg) | ![Chat with my SAP Data Flow Part 2](images/flow2.jpg) |
-
-<br>
+![Chat with my SAP Data Flow Part 1-2](images/flow1-2.jpg) <br>
 
 ![Chat with my SAP Data Flow Part 3](images/flow3.jpg) <br>
 
