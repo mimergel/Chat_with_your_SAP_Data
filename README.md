@@ -205,6 +205,14 @@ Steps to adapt the solution to another business scenario:
 
 - Enter the table(s) definition for your scenario
 
+## Contributing
+
+Contributions to enhance the capabilities are welcome.
+
+## License
+
+This project is licensed under the MIT License.
+
 ## Disclaimer
 
 THE CONTENT OF THIS REPOSITORY IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
